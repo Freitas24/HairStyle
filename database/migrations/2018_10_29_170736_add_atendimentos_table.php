@@ -17,7 +17,7 @@ class AddAtendimentosTable extends Migration
             $table->increments('id');
             $table->dateTime('diahora');
             $table->integer('user_id')->unsigned();
-            $table->string('servico_id');
+            $table->string('atendimento_id');
             $table->timestamps();
         });
     }

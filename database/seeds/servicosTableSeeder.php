@@ -13,7 +13,7 @@ class servicosTableSeeder extends Seeder
     public function run()
     {
         Servico::create([
-            'descricao' => 'Tirar as pontas e cortar em V',
+            'servico_id' => 'Tirar as pontas e cortar em V',
             'valor' => 'R$60,00',
             'tempomedio' => '30 minutos'
             'user_id' => 1
