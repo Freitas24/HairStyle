@@ -15,10 +15,17 @@ class AddAtendimentosTable extends Migration
     {
         Schema::create('atendimentos', function (Blueprint $table) {
             $table->increments('id');
-            $table->dateTime('diahora');
+            $table->dateTime('diahora_inicio');
+            $table->dateTime('diahora_final');
             $table->integer('user_id')->unsigned();
-            $table->string('atendimento_id');
+            $table->string('servico_id')->unsigned();
             $table->timestamps();
+        });
+
+        Schema::table('atendimentos', function (Blueprint $table) {
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('servico_id')->references('id')->on('servicos');
+        
         });
     }
 

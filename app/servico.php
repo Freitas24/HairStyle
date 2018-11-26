@@ -6,9 +6,11 @@ use App\atendimento;
 
 class servico extends Model
 {
-    protected $table = 'servico';
-    public function atendimento()
+    protected $table = 'servicos';
+    
+
+    public function atendimentos()
     {
-        return $this->belongsTo(atendimento::class); //pertence a
+        return $this->hasMany(atendimento::class); 
     }
 }

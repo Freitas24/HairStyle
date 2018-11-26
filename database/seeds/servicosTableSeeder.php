@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Servico;
+use App\servico;
 
 class servicosTableSeeder extends Seeder
 {
@@ -12,32 +12,28 @@ class servicosTableSeeder extends Seeder
      */
     public function run()
     {
-        Servico::create([
-            'servico_id' => 'Tirar as pontas e cortar em V',
-            'valor' => 'R$60,00',
-            'tempomedio' => '30 minutos'
-            'user_id' => 1
+        servico::create([
+            'descricao' => 'Tirar as pontas e cortar em V',
+            'valor' => 60.00,
+            'tempomedio' => '00:30:00'
         ]);
 
-        Servico::create([
-            'servico_id' => 'Pintar o cebelo em castanho escuro e tirar a sobrancelha',
-            'valor' => 'R$85,00',
-            'tempomedio' => '1 hora'
-            'user_id' => 2
+        servico::create([
+            'descricao' => 'Pintar o cebelo em castanho escuro e tirar a sobrancelha',
+            'valor' => 85.00,
+            'tempomedio' => '1:00:00'
         ]);
 
-        Servico::create([
-            'servico_id' => 'Lixar as unhas, colocar unhas postiças e design',
-            'valor' => 'R$30,00',
-            'tempomedio' => '30 minutos'
-            'user_id' => 3
+        servico::create([
+            'descricao' => 'Lixar as unhas, colocar unhas postiças e design',
+            'valor' => 30.00,
+            'tempomedio' => '00:30:00'
         ]);
 
-        Servico::create([
-            'servico_id' => 'Maquiagem, arrumar o cabelo',
-            'valor' => 'R$100,00',
-            'tempomedio' => '1 hora'
-            'user_id' => 4
+        servico::create([
+            'descricao' => 'Maquiagem, arrumar o cabelo',
+            'valor' => 100.00,
+            'tempomedio' => '1:00:00'
         ]);
     }
 }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\atendimento;
 use Illuminate\Http\Request;
+use \Illuminate\Support\Facades\Validator;
+use \Illuminate\Support\Facades\Auth;
 
 class atendimentoController extends Controller
 {
@@ -18,13 +20,15 @@ class atendimentoController extends Controller
         if( Auth::check() ){   
             //retorna somente os atendimento cadastradas pelo usuário cadastrado
             $listaatendimento = atendimento::where('user_id', Auth::id() )
+                                                ->with(['User','servico'])
                                                 ->paginate(3);     
         }else{
             //retorna todas os atendimento
-            $listaatendimento = atendimento::all();
+            $listaatendimento = atendimento::with(['User','servico'])
+                                                ->paginate(3);
         }
-        
-        return view('atendimento.list',['atendimento' => $listaatendimento]);
+
+        return view('atendimento.list',['atendimentos' => $listaatendimento]);
     }
     /**
      * Show the form for creating a new resource.
@@ -64,7 +68,7 @@ class atendimentoController extends Controller
         }
         //se passou pelas validações, processa e salva no banco...
         $obj_atendimento = new atendimento();
-        $obj_atendimento->atendimento_id =       $request['atendimento_id'];
+        $obj_atendimento->servico_id =       $request['servico_id'];
         $obj_atendimento->diahora = $request['diahora'];
         $obj_atendimento->user_id     = Auth::id();
         $obj_atendimento->save();
@@ -78,7 +82,7 @@ class atendimentoController extends Controller
      */
     public function show($id)
 {
-        $atendimento = atendimento::where("id",$id)->with('serviço')->get()->first();
+        $atendimento = atendimento::where("id",$id)->with('servico')->get()->first();
         return view('atendimento.show',['atendimento' => $atendimento]);
     }
     /**

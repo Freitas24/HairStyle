@@ -13,27 +13,31 @@ class atendimentosTableSeeder extends Seeder
     public function run()
     {
         atendimento::create([
-            'atendimento_id' => 'Cortar o cabelo',
-            'diahora' => '2018-11-05 13:30:00',
-            'user_id' => 1
+            'diahora_inicio' => '2018-11-05 13:30:00',
+            'diahora_final' => '2018-11-05 14:00:00',
+            'user_id' => 1,
+            'servico_id' => 1,
         ]);
 
         atendimento::create([
-            'atendimento_id' => 'Pintar o cabelo e tirar a sobrancelha',
-            'diahora' => '2018-11-05 14:00:00',
-            'user_id' => 2
+            'diahora_inicio' => '2018-11-06 14:00:00',
+            'diahora_final' => '2018-11-06 14:30:00',
+            'user_id' => 1,
+            'servico_id' => 2,
         ]);
 
         atendimento::create([
-            'atendimento_id' => 'Fazer a unha',
-            'diahora' => '2018-11-05 15:00:00',
-            'user_id' => 3
+            'diahora_inicio' => '2018-11-07 15:00:00',
+            'diahora_final' => '2018-11-07 16:00:00',
+            'user_id' => 1,
+            'servico_id' => 3,
         ]);
 
         atendimento::create([
-            'atendimento_id' => 'Maquiagem, arrumar o cabelo',
-            'diahora' => '2018-11-05 15:30:00',
-            'user_id' => 4
+            'diahora_inicio' => '2018-11-08 15:30:00',
+            'diahora_final' => '2018-11-08 16:30:00',
+            'user_id' => 1,
+            'servico_id' => 2,
         ]);
     }
 }
