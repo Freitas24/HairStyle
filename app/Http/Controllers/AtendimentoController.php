@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\atendimento;
+use App\servico;
 use Illuminate\Http\Request;
 use \Illuminate\Support\Facades\Validator;
 use \Illuminate\Support\Facades\Auth;
@@ -37,7 +38,8 @@ class atendimentoController extends Controller
      */
     public function create()
     {
-        return view('atendimento.create');
+        $listaServicos = servico::all();
+        return view('atendimento.create',['servicos' => $listaServicos]);
     }
     /**
      * Store a newly created resource in storage.
@@ -50,29 +52,34 @@ class atendimentoController extends Controller
         //faço as validações dos campos
         //vetor com as mensagens de erro
         $messages = array(
-            'atendimento_id.required' => 'É obrigatório um título para o atendimento',
-            'diahora.required' => 'É obrigatório o cadastro da data/hora do atendimento',
+            'diahora_inicio.required' => 'É obrigatório o cadastro da data/hora do atendimento',
         );
         //vetor com as especificações de validações
         $regras = array(
-            'atendimento_id' => 'required|string|max:255',
-            'diahora' => 'required|string',
+            'diahora_inicio' => 'required|string',
         );
         //cria o objeto com as regras de validação
         $validador = Validator::make($request->all(), $regras, $messages);
         //executa as validações
         if ($validador->fails()) {
-            return redirect('atendimento/create')
+            return redirect('/atendimentos/create')
             ->withErrors($validador)
             ->withInput($request->all);
         }
         //se passou pelas validações, processa e salva no banco...
         $obj_atendimento = new atendimento();
-        $obj_atendimento->servico_id =       $request['servico_id'];
-        $obj_atendimento->diahora = $request['diahora'];
+        $obj_atendimento->diahora_inicio = $request['diahora_inicio'];
         $obj_atendimento->user_id     = Auth::id();
+        $obj_atendimento->servico_id = $request['servico_id'];
+        
+        $objData = \Carbon\Carbon::parse($request['diahora_inicio']);
+        $objservico = servico::find($request['servico_id']);
+        $objData->addHour($objservico->tempomedio);
+        
+        $obj_atendimento->diahora_final = $objData;
         $obj_atendimento->save();
-        return redirect('/atendimento')->with('success', 'Atendimento criado com sucesso!!');
+
+        return redirect('/atendimentos')->with('success', 'Atendimento criado com sucesso!!');
     }
     /**
      * Display the specified resource.

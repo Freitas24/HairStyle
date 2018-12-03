@@ -20,4 +20,9 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/atendimentos','AtendimentoController@index');
+Route::get('/atendimentos/create','AtendimentoController@create');
+Route::post('/atendimentos','AtendimentoController@store');
 
+Route::get('/servicos','ServicoController@index');
+Route::get('/servicos/create','ServicosController@create');
+Route::post('/servicos','ServicosController@store');

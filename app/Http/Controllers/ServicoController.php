@@ -16,16 +16,7 @@ class servicoController extends Controller
      */
     public function index()
     {
-        //checa se o usuário está cadastrado
-        if( Auth::check() ){   
-            //retorna somente os servico cadastradas pelo usuário cadastrado
-            $listaservico = servico::where('user_id', Auth::id() )
-                                                ->paginate(3);     
-        }else{
-            //retorna todas os servico
-            $listaservico = servico::all();
-        }
-        
+        $listaservico = servico::all();   
         return view('servico.list',['servico' => $listaservico]);
     }
     /**
