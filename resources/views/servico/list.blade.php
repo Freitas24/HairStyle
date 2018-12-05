@@ -1,4 +1,4 @@
-<h1>Lista de |Serviços</h1>
+<h1>Lista de Serviços</h1>
 
 <!-- EXIBE MENSAGENS DE SUCESSO -->
   @if(\Session::has('success'))

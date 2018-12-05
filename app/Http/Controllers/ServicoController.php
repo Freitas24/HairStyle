@@ -16,8 +16,8 @@ class servicoController extends Controller
      */
     public function index()
     {
-        $listaservico = servico::all();   
-        return view('servico.list',['servico' => $listaservico]);
+        $listaservico = servico::paginate(3);   
+        return view('servico.list',['servicos' => $listaservico]);
     }
     /**
      * Show the form for creating a new resource.
@@ -39,26 +39,29 @@ class servicoController extends Controller
         //faço as validações dos campos
         //vetor com as mensagens de erro
         $messages = array(
-            'servico_id.required' => 'É obrigatório uma descrição para o serviço',
+            'descricao.required' => 'É obrigatório uma descrição para o serviço',
+            'valor.required' => 'É obrigatório um valor para o serviço',
         );
         //vetor com as especificações de validações
         $regras = array(
-            'servico_id' => 'required|string|max:255',
+            'descricao' => 'required|string|max:255',
+            'valor' => 'required|string|max:255',
         );
         //cria o objeto com as regras de validação
         $validador = Validator::make($request->all(), $regras, $messages);
         //executa as validações
         if ($validador->fails()) {
-            return redirect('servico/create')
+            return redirect('servicos/create')
             ->withErrors($validador)
             ->withInput($request->all);
         }
         //se passou pelas validações, processa e salva no banco...
         $obj_servico = new servico();
-        $obj_servico->servico_id =       $request['servico_id'];
-        $obj_servico->user_id     = Auth::id();
+        $obj_servico->descricao =       $request['descricao'];
+        $obj_servico->valor     =       $request['valor'];
+        $obj_servico->tempomedio     =       $request['tempomedio'];
         $obj_servico->save();
-        return redirect('/servico')->with('success', 'Serviço criado com sucesso!!');
+        return redirect('/servicos')->with('success', 'Serviço criado com sucesso!!');
     }
     /**
      * Display the specified resource.
